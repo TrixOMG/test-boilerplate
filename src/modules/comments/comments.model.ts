@@ -1,4 +1,3 @@
-// src/modules/comments/comments.model.ts
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 
@@ -9,7 +8,7 @@ export class Comment {
     @Prop({ required: true, type: Number })
     postId: number;
 
-    @Prop({ required: true, minlength: 1, maxlength: 1000 })
+    @Prop({ required: false, minlength: 1, maxlength: 1000})
     text: string;
 
     @Prop({ required: true, min: 1, max: 5 })
