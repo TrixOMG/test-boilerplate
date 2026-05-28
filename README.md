@@ -16,18 +16,21 @@
 
 - **Решение**:
 
-  - дописал docker-compose.yml, добавил Dockerfile для запуска NestJS
+    - дописал docker-compose.yml, добавил Dockerfile для запуска NestJS
 
-  - при билде обнаружил ошибку:
+    - при билде обнаружил ошибку:
 
-    ```bash
-        4.196 src/modules/comments/comments.service.ts:5:54 - error TS2304: Cannot find name 'CommentsRepository'.
-        4.196
-        4.196 5     constructor(private readonly commentsRepository: CommentsRepository) {}
-    ```
+        ```bash
+            4.196 src/modules/comments/comments.service.ts:5:54 - error TS2304: Cannot find name 'CommentsRepository'.
+            4.196
+            4.196 5     constructor(private readonly commentsRepository: CommentsRepository) {}
+        ```
 
-    создал _src/modules/comments/comments.repository.ts_
-    импортировал в _src/modules/comments/comments.service.ts_
+        создал _src/modules/comments/comments.repository.ts_
+        импортировал в _src/modules/comments/comments.service.ts_
+        добавил репозиторий в провайдеры _src/modules/comments/comments.module.ts_
+
+    - также были ошибки с моделями, их решил добавлением imports в модулях _src/modules/comments/comments.module.ts_ и _src/modules/posts/posts.module.ts_ **эти изменения сделал в коммите задачи 3**
 
 ---
 
