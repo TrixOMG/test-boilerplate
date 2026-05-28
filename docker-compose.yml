@@ -9,6 +9,8 @@ services:
       - '5432:5432'
     volumes:
       - pgdata:/var/lib/postgresql/data
+    networks:
+      - app-network
 
   mongodb:
     image: mongo:7
@@ -16,7 +18,43 @@ services:
       - '27017:27017'
     volumes:
       - mongodata:/data/db
+    networks:
+      - app-network
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    container_name: test-boilerplate-app
+    ports:
+      - '3000:3000'
+      - '9229:9229'
+    volumes:
+      - .:/app
+      - /app/node_modules
+    depends_on:
+      postgres:
+        condition: service_healthy
+      mongodb:
+        condition: service_healthy
+    networks:
+      - app-network
+    environment:
+      NODE_ENV: development
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: test-boilerplate
+      MONGODB_URI: mongodb://mongodb:27017/test-boilerplate
+    command: npm run start:dev
 
 volumes:
   pgdata:
   mongodata:
+
+networks:
+  app-network:
+    driver: bridge
+
