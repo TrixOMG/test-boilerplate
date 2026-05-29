@@ -14,6 +14,8 @@ async function bootstrap(): Promise<void> {
         })
     );
 
+    app.enableCors();
+
     const config = new DocumentBuilder()
         .setTitle('Test Boilerplate API')
         .setDescription('API documentation for Test Boilerplate application')
